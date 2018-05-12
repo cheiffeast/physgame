@@ -158,7 +158,7 @@ class scene1(BaseScene):
         self.events.append(event.Event(event.K_d, self.moveRight))
         self.events.append(event.Event(event.K_w, self.moveUp))
         self.events.append(event.Event(event.K_s, self.moveDown))
-        self.events.append(event.Event(event.K_SPACE, self.smallBoxExplosion))
+        self.events.append(event.Event(event.K_SPACE, self.smallExplosion))
 
 def flipY(y, ys):
     return -y + ys

@@ -24,11 +24,11 @@ class Camera():
                 end = self.applyAll(self.scene.listflipy(
                     body.position + shape.b.rotated(body.angle)))
 
-                shapes.append([sType, start, end, max(
+                shapes.append(["segment", start, end, max(
                     [self.applyZoomRadius(shape.radius), 1])])
 
             if sType == pms.Circle:
-                shapes.append([sType, self.applyAll(self.scene.listflipy(
+                shapes.append(["circle", self.applyAll(self.scene.listflipy(
                     body.position)), self.applyZoomRadius(shape.radius), body.angle])
 
             if sType == pms.Poly:
@@ -37,7 +37,7 @@ class Camera():
                     pos = self.applyAll(self.scene.listflipy(
                         vertex.rotated(shape.body.angle) + shape.body.position))
                     v.append(pos)
-                shapes.append([sType, v, shape.body])
+                shapes.append(["polygon", v, shape.body])
 
         return shapes
 
