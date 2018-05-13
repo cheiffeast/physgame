@@ -81,7 +81,7 @@ class eventManager():
 
         for event in events:
             if event.type == self.pygame.QUIT:
-                return QUIT
+                return 1
             # Check against all events in the scene
             if event.type == self.pygame.MOUSEBUTTONDOWN: MOUSEBUTTONDOWN = True
             for sceneEvent in self.events:

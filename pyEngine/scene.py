@@ -1,6 +1,6 @@
 from pickle import loads, dumps
-from camera import Camera
-from event import eventManager
+from pyEngine.camera import Camera
+from pyEngine.event import eventManager
 
 class BaseScene():
     def __init__(self, pygame, pymunk, space, size, **kwargs):

@@ -1,10 +1,12 @@
-import pygame, sys
-import draw, scene
+from time import time
+start = time()
+
+import pygame
 import pymunk, pymunk.pygame_util
 
 from time import time
 from pymunk.vec2d import Vec2d
-
+from . import draw, scene
 
 class Engine():
     def __init__(self, size, **kwargs):
@@ -18,7 +20,7 @@ class Engine():
         self.debug     = kwargs.get("debug", False)
         self.fps       = kwargs.get("fps", 60)
 
-        self.delta         = 0
+        self.delta         = 1
         self.running       = True
         self.calculatedFps = self.fps
         self.sceneManager = scene.sceneMananger()
@@ -62,19 +64,23 @@ class Engine():
             if self.debug: self.space.debug_draw(self.drawOptions)
             else: draw.simple(self.screen, data[1])
 
+
+            self.calculatedFps = self.clock.get_fps()
             if self.calculatedFps == 0: fps = self.fps
             else: fps = self.calculatedFps
 
+
             self.space.step(1/fps)
 
-
-            self.calculatedFps = self.clock.get_fps()
             pygame.display.update()
             self.clock.tick(fps)
 
             if self.debug:
                 self.looped += 1
-                if self.looped % self.calculatedFps:
+                if self.looped > int(fps):
                     print("There are {} objects in the current space at fps {}".format(len(self.space.shapes), fps))
+                    self.looped = 1
 
             self.sceneManager.current.afterLoop()
+
+print("pyEngine fully loaded in {}s".format(time() - start))

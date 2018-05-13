@@ -1,5 +1,5 @@
-import event
-from scene import BaseScene
+import pyEngine.event as event
+from pyEngine.scene import BaseScene
 from math import sin, cos, pi
 
 class scene1(BaseScene):
