@@ -19,9 +19,11 @@ engine = Engine.Engine(size, gravity = gravity,
                        debug = debug, fps = fps)
 
 scene = scene1(Engine.pygame, Engine.pymunk, engine.space, size)
+engine.addScene(scene)
+engine.setCurrentScene(scene)
 
 while running:
-    flag = engine.loop(scene)
+    flag = engine.loop()
     if flag: running = False
 
 Engine.pygame.quit()

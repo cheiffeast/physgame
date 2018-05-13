@@ -1,5 +1,5 @@
 import pygame, sys
-import sceneExample, draw
+import draw, scene
 import pymunk, pymunk.pygame_util
 
 from time import time
@@ -21,6 +21,8 @@ class Engine():
         self.delta         = 0
         self.running       = True
         self.calculatedFps = self.fps
+        self.sceneManager = scene.sceneMananger()
+
 
         self.setupSpace()
         self.setupPygame()
@@ -40,12 +42,19 @@ class Engine():
         self.screen = pygame.display.set_mode(self.size)
         self.clock  = pygame.time.Clock()
 
-    def loop(self, scene):
-        if self.running:
-            scene.beforeLoop()
+    def addScene(self, scene):
+        scene.Engine = self
+        self.sceneManager.add(scene)
+
+    def setCurrentScene(self, scene):
+        self.sceneManager.setCurrent(scene)
+
+    def loop(self):
+        if self.running and self.sceneManager.current != None:
+            self.sceneManager.current.beforeLoop()
             self.screen.fill([0, 0, 0])
 
-            data = scene.loop()
+            data = self.sceneManager.current.loop()
             if data[0] == 1:
                 self.running = False
                 return 1
@@ -68,4 +77,4 @@ class Engine():
                 if self.looped % self.calculatedFps:
                     print("There are {} objects in the current space at fps {}".format(len(self.space.shapes), fps))
 
-            scene.afterLoop()
+            self.sceneManager.current.afterLoop()

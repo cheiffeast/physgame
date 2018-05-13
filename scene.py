@@ -44,9 +44,17 @@ class BaseScene():
         self.eventManager.add(event)
 
 
-def SceneManange():
+class sceneMananger():
     def __init__(self, scenes = []):
-        self.scenes = scenes
+        self.scenes  = scenes
+        self.current = None
+        self.Engine  = None
 
     def add(self, *args):
         for scene in args: self.scenes.append(scene)
+
+    def setCurrent(self, scene):
+        if scene in self.scenes:
+            self.current = scene
+            return 1
+        raise Exception("Scene not in manager")
