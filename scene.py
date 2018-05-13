@@ -42,3 +42,11 @@ class BaseScene():
 
     def addEvent(self, event):
         self.eventManager.add(event)
+
+
+def SceneManange():
+    def __init__(self, scenes = []):
+        self.scenes = scenes
+
+    def add(self, *args):
+        for scene in args: self.scenes.append(scene)

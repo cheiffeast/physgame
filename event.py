@@ -34,6 +34,14 @@ class Event():
     def run(self, data):
         print("Empty event")
 
+class CustomEvent(Event):
+    def __init__(self):
+        Event.__init__(self, "custom")
+
+    def isTriggered(self, data):
+        return False
+
+
 class eventManager():
     def __init__(self, scene, events = []):
         self.scene  = scene
@@ -82,6 +90,8 @@ class eventManager():
 
 
         for sceneEvent in self.events:
+            if sceneEvent.on == "custom":
+                if sceneEvent.isTriggered(data): sceneEvent.run(data)
             if MOUSEBUTTONDOWN:
                 # Left mouse button pressed
                 if sceneEvent.on == LEFTMOUSEBUTTONPRESS and mouse_state[0]:
