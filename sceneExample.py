@@ -152,13 +152,16 @@ class scene1(BaseScene):
 
 
     def setupEvents(self):
-        self.events.append(event.Event(event.RIGHTMOUSEBUTTONHOLD, self.zoomOut))
-        self.events.append(event.Event(event.LEFTMOUSEBUTTONHOLD, self.zoomIn))
-        self.events.append(event.Event(event.K_a, self.moveLeft))
-        self.events.append(event.Event(event.K_d, self.moveRight))
-        self.events.append(event.Event(event.K_w, self.moveUp))
-        self.events.append(event.Event(event.K_s, self.moveDown))
-        self.events.append(event.Event(event.K_SPACE, self.smallExplosion))
+        e1 = event.Event(event.RIGHTMOUSEBUTTONHOLD, self.zoomOut)
+        e2 = event.Event(event.LEFTMOUSEBUTTONHOLD, self.zoomIn)
+        e3 = event.Event(event.K_a, self.moveLeft)
+        e4 = event.Event(event.K_d, self.moveRight)
+        e5 = event.Event(event.K_w, self.moveUp)
+        e6 = event.Event(event.K_s, self.moveDown)
+        e7 = event.Event(event.K_SPACE, self.smallExplosion)
+
+        self.eventManager.add(e1, e2, e3, e4, e5, e6, e7)
+
 
 def flipY(y, ys):
     return -y + ys

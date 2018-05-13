@@ -1,6 +1,6 @@
 from pickle import loads, dumps
 from camera import Camera
-from eventManager import eventManager
+from event import eventManager
 
 class BaseScene():
     def __init__(self, pygame, pymunk, space, size, **kwargs):
@@ -9,8 +9,7 @@ class BaseScene():
         self.space  = space
         self.size   = size
 
-        self.name   = kwargs.get("name", None)
-        self.events = []
+        self.name      = kwargs.get("name", None)
 
         self.eventManager  = eventManager(self)
         self.camera        = Camera(self)
@@ -40,3 +39,6 @@ class BaseScene():
 
     def listflipy(self, pos):
         return pos[0], self.flipy(pos[1])
+
+    def addEvent(self, event):
+        self.eventManager.add(event)

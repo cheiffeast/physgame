@@ -1,7 +1,6 @@
 import pygame, sys
 import sceneExample, draw
 import pymunk, pymunk.pygame_util
-import pygame.gfxdraw
 
 from time import time
 

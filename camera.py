@@ -1,4 +1,5 @@
 import pymunk.shapes as pms
+from pymunk.vec2d import Vec2d
 
 
 class Camera():
@@ -6,8 +7,8 @@ class Camera():
         self.scene = scene
 
         self.zoom = kwargs.get("zoomFactor", 1)
-        self.zoomAbout = self.scene.size
-        self.offset = [0, 0]
+        self.zoomAbout = Vec2d(self.scene.size)
+        self.offset = Vec2d([0, 0])
 
     def processData(self):
         if self.zoom < 0.1:
@@ -42,18 +43,16 @@ class Camera():
         return shapes
 
     def calculateOffset(self):
-        center = [(self.zoomAbout[0] / 2) * self.zoom,
-                  (self.zoomAbout[1] / 2) * self.zoom]
-        offset = [(self.zoomAbout[0] / 2) - center[0],
-                  (self.zoomAbout[1] / 2) - center[1]]
+        center = self.zoomAbout / 2 * self.zoom
+        offset = self.zoomAbout / 2 - center
         return offset
 
     def applyOffset(self, pos):
-        return pos[0] + self.offset[0], pos[1] + self.offset[1]
+        return Vec2d(pos) + self.offset
 
     def applyZoom(self, pos):
         offset = self.calculateOffset()
-        return (pos[0] * self.zoom) + offset[0], (pos[1] * self.zoom) + offset[1]
+        return Vec2d(pos) * self.zoom + offset
 
     def applyZoomRadius(self, radius):
         return radius * self.zoom
@@ -63,5 +62,4 @@ class Camera():
 
     def trueMouse(self, pos):
         offset = self.calculateOffset()
-        return [(1 / self.zoom) * (pos[0] - offset[0] - self.offset[0]),
-                (1 / self.zoom) * (pos[1] - offset[1] - self.offset[1])]
+        return (1 / self.zoom) * (Vec2d(pos) - offset - self.offset)
